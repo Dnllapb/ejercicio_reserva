@@ -2,6 +2,9 @@ package org.example.Hotel;
 
 import org.example.Persona.Persona;
 import org.example.Reservar;
+
+import java.util.Scanner;
+
 public class Hotel extends Persona implements Reservar {
     private String nombreHotel;
     private String direccionHotel;
@@ -10,6 +13,9 @@ public class Hotel extends Persona implements Reservar {
     private String tipoDeHabitacion;
     private double precioNoche;
     private int diasReserva;
+    private double totalReserva;
+
+    Scanner lectura = new Scanner(System.in);
 
     public Hotel(String nombrePersona, int idPersona, int celularPersona, String fechaReserva, String tipoReserva, String nombreHotel, String direccionHotel, String telefonoHotel, String tipoDeHotel, String tipoDeHabitacion, double precioNoche, int diasReserva) {
         super(nombrePersona,idPersona,celularPersona,fechaReserva,tipoReserva);
@@ -94,16 +100,37 @@ public class Hotel extends Persona implements Reservar {
     @Override
     public void realizarReserva( boolean confirmarReserva) {
 
-        double totalReserva = getDiasReserva()*getPrecioNoche();
+        totalReserva = getDiasReserva()*getPrecioNoche();
         if (confirmarReserva = true)
         {
-            System.out.println("Gracias por confirmar tu reserva:  " + "\n" + confirmarReserva + "El valor a cancelar es : \n " + totalReserva );
+            System.out.println("Gracias por confirmar tu reserva:  " + "\n" + confirmarReserva  );
         }
         else System.out.println("Tu reserva no fue confirmada intentalo nuevamente");
 
     }
     @Override
-    public void medioPago() {
+    public void medioPago(int medioDePago) {
+
+        System.out.println("Por favor ingresa el medio de pago");
+        System.out.println("1. Efectivo "+ "\n" +
+                           "2. Tarjeta credito" + "\n" +
+                           "3. Tarjeta debito");
+        medioDePago = lectura.nextInt();
+        switch (medioDePago)
+        {
+            case 1:
+                System.out.println("Tu medio de pago es efectivo el valor a cancelar es: " + totalReserva );
+                break;
+            case 2:
+                System.out.println("Tu medio de pago es tarjeta credito el valor a cancelar es: " + totalReserva );
+                break;
+            case 3:
+                System.out.println("Tu medio de pago es tarjeta debito el valor a cancelar es: " + totalReserva );
+                break;
+            default:
+                System.out.println("Por favor selecciona una opcion");
+        }
+
 
     }
 }
